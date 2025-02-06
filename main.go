@@ -71,6 +71,9 @@ func main() {
 		log.Fatalf("error: loading env: %v", err)
 	}
 	tmdbAuthKey := os.Getenv("TMDB_AUTH_KEY")
+	if tmdbAuthKey == "" {
+		log.Fatal("tmdb auth api key not available add it to your env")
+	}
 	args := os.Args
 	flags := [2]string{"--type", "--help"}
 	if len(args) > 3 {
@@ -86,7 +89,9 @@ func main() {
 		return
 	}
 	var movieType string
-	if len(args) == 3 {
+	if len(args) > 3 {
+		// tmdbAuthKeyFlag = args[3]
+		// tmdbAuthKey = args[4]
 		if args[1] == flags[0] {
 			movieTypeValid := false
 			for _, value := range MOVIE_TYPES {
